@@ -57,11 +57,11 @@ class TransactionTagSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 class KindOfTransactionSerializer(serializers.HyperlinkedModelSerializer): 
-    transactions = serializers.HyperlinkedRelatedField(
-        many=True,
-        read_only=True,
-        view_name='transaction-detail'
-    )
+    # transactions = serializers.HyperlinkedRelatedField(
+    #     many=True,
+    #     read_only=True,
+    #     view_name='transaction-detail'
+    # )
 
     class Meta:
         model = KindOfTransaction
@@ -156,11 +156,14 @@ class TransactionSerializer(serializers.HyperlinkedModelSerializer):
         except: 
             tags_data = []
         finally:
-            instance.name = validated_data.get('title', instance.name)
-            instance.description = validated_data.get('description', instance.content)
+            instance.name = validated_data.get('name', instance.name)
+            instance.wallet = validated_data.get('wallet', instance.wallet)
+            instance.amount = validated_data.get('amount', instance.amount)
+            instance.description = validated_data.get('description', instance.description)
             instance.category = validated_data.get('category', instance.category)
             instance.author = validated_data.get('author', instance.author)
+            instance.kind = validated_data.get('kind', instance.kind)       
             self.add_tags_to_transaction(instance, tags_data)
-            instance.save()
+            instance.save(kind='update')
             return instance 
 

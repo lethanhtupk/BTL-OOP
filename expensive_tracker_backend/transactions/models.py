@@ -11,7 +11,6 @@ class Wallet(models.Model):
         User,
         related_name='wallets',
         on_delete=models.CASCADE,
-        null=True,
     )
     amount = models.FloatField(validators=[MinValueValidator(0.0)])
     created_at = models.DateTimeField(auto_now=True)
@@ -40,7 +39,6 @@ class Category(models.Model):
         User,
         related_name='categories',
         on_delete=models.CASCADE,
-        null=True
     )
     created_at = models.DateField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
@@ -78,7 +76,6 @@ class Transaction(models.Model):
         User,
         related_name='transactions', 
         on_delete=models.CASCADE,
-        null=True,
     )
     kind = models.ForeignKey(
         KindOfTransaction, 
@@ -97,14 +94,16 @@ class Transaction(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
-    def save(self, *args, **kwargs): 
-        if self.kind.name == "Income":
-            self.wallet.amount += self.amount
-        elif self.kind.name == "Outcome":
-            self.wallet.amount -= self.amount
-        self.wallet.save()
+    def save(self, kind=None, *args, **kwargs): 
+        if kind != 'update':
+            if self.kind.name == "Income":
+                self.wallet.amount += self.amount
+            elif self.kind.name == "Outcome":
+                self.wallet.amount -= self.amount
+            self.wallet.save()
+            
         super(Transaction, self).save(*args, **kwargs)
-        
+    
     class Meta:
         ordering = ('-updated_at',)
 

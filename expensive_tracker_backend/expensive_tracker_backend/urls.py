@@ -19,4 +19,11 @@ from django.urls import path, include, re_path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('transactions.urls')),
+    # api/v1/auth/users : register a new user
+    # api/v1/auth/me: retrieve/update the currently logged in user
+    path('api/v1/auth/', include('djoser.urls')),
+    path('api/v1/auth/', include('djoser.urls.jwt')),
+    # api/v1/accounts/profiles/: get all user profiles and create a new one
+    # api/v1/accounts/profiles/id: detail view of a user's profile
+    path('api/v1/users/', include('users.urls')),
 ]
