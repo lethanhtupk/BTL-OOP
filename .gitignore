@@ -124,7 +124,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
+.btloop/
+btloop
 # Spyder project settings
 .spyderproject
 .spyproject
