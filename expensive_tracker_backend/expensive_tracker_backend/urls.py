@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
+from transactions import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +27,6 @@ urlpatterns = [
     # api/v1/accounts/profiles/: get all user profiles and create a new one
     # api/v1/accounts/profiles/id: detail view of a user's profile
     path('api/v1/users/', include('users.urls')),
+    path('', views.HomePage.as_view())
+    # path('/login', views.home)
 ]

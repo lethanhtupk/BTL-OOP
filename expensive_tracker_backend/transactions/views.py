@@ -3,6 +3,10 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework import status
+from django.shortcuts import render
+from django.views import View
+import requests
+from datetime import date
 from transactions.models import (
     Category,
     Tag,
@@ -229,3 +233,14 @@ class ApiRoot(generics.GenericAPIView):
             'transactions': reverse(TransactionList.name, request=request),
             'kindoftransactions': reverse(KindOfTransactionList.name, request=request),
         })
+
+class HomePage(View):
+    def get(self, request, *args, **kwargs):
+        response = requests.get('http://127.0.0.1:8000/api/v1/wallets/')
+        wallet = response.json()
+        # print(wallet[0]['pk'])
+        res_transactions = requests.get('http://127.0.0.1:8000/api/v1/transactions/?wallet='+str(wallet[0]['pk']))
+        today = date.today()
+        print(res_transactions.json()[0]['created_at'].split('T')[0])
+        return render(request, 'index.html')
+
