@@ -1,0 +1,37 @@
+{% extends "qlct_nhom/qlct_nhom.html" %}
+{% block content %}
+
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Genre', 'Du Lịch', 'Điện', 'Sinh Hoạt', 'Thể Thao',
+         'Giáo dục', 'Sức khỏe', 'Ăn uống', 'Vệ sinh', 'Giải trí', 'Học tập', { role: 'annotation' } ],
+        ['Tháng 3', 10034, 24323, 20111, 32721, 18023, 5049, 8999, 12267, 140555, 109, ''],
+        ['Tháng 4', 163450, 22033, 23122, 30266, 16423, 99878, 91123, 111234, 21312, 32032, ''],
+        ['Tháng 5', {{so1}}, {{so2}}, {{so3}}, {{so4}}, {{so5}}, {{so6}}, {{so7}}, {{so8}}, {{so9}}, {{so10}}, '']
+      ]);
+
+      var options = {
+        width: 885,
+        height: 400,
+        legend: { position: 'top', maxLines: 3 },
+        bar: { groupWidth: '75%' },
+        isStacked: true,
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="columnchart_values" style="width: 885px; height: 400px;"></div>
+  </body>
+</html>
+
+{% endblock %}

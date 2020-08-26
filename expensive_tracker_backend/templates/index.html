@@ -154,7 +154,7 @@
                         <th style="width: 40%;">
                           <button type="button" class="btn btn-light"><i class="fas fa-angle-left"></i></button>
                         </th>
-                        <th style="width: 50%;">6/2020</th>
+                        <th style="width: 50%;">{{day}}</th>
                         <th style="width: 10%;"><button type="button" class="btn btn-light"><i class="fas fa-angle-right"></i></button></th>
                     </tr>
                 </thead>
@@ -167,10 +167,15 @@
     
             </div>
           </div>
+          {% for cate in category %}
           <div class="row">
+            
+           
             <div class="mb-4">
   
             </div>
+           
+            
             <div class="box-content md-4">
               <table class="table-hover table tb-center" style="color: black;">
                 <thead>
@@ -178,45 +183,39 @@
                         <th style="width: 20%;">
                             <img class="avatar" src="{% static 'img/color-silhouette-cartoon-facade-shop-store-vector-14711058-1570007843495391141359-1570076859193969194096-15700769046292030065819-1570076927728377843390.png'%}" alt="">
                         </th>
-                        <th style="width: 60%;">Ăn uống</th>
-                        <th style="width: 20%;">100,000</th>
+                        <th style="width: 60%;">{{cate}}</th>
+                        <th style="width: 20%;"></th>
                     </tr>
                 </thead>
                 <tbody >
-                 
+                  {%for tran in tran_list%}
+                  {%if tran.category == cate %}
                     <tr>
                       
                       <td>25-09</td>
                       <td><div>
-                      <a href="#addEmployeeModal" style="text-decoration: none; color: black;">
-                        <h6>Name</h6>
-                        <p class="description">Miêu tả chi tiết</p>
+                      <a href="#addEmployeeModal" data-toggle="modal" style="text-decoration: none; color: black;">
+                        <h6>{{tran.name}}</h6>
+                        <p class="description">{{tran.description}}</p>
                       </a>
                       </div></td>
-                      <td>20.000</td>
+                      <td>{{tran.amount}}</td>
                     </a> 
                     </tr>
+                    {%endif%}
+                    {%endfor%}
                  
-                    <tr>
-                        <td>2</td>
-                        <td>Carter</td>
-                        <td>30.000</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Parker</td>
-                        <td>40.000</td>
-                    </tr>            
+                  
                 </tbody>
             </table>
             </div>
        
             <!-- Content Row -->
             <div class="md-4">
-    
+            
             </div>
           </div>
-     
+          {%endfor%}
         </div>
        
        

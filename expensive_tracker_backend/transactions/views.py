@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.views import View
 import requests
 from datetime import date
+import time
 from transactions.models import (
     Category,
     Tag,
@@ -239,8 +240,20 @@ class HomePage(View):
         response = requests.get('http://127.0.0.1:8000/api/v1/wallets/')
         wallet = response.json()
         # print(wallet[0]['pk'])
-        res_transactions = requests.get('http://127.0.0.1:8000/api/v1/transactions/?wallet='+str(wallet[0]['pk']))
+        transactions = requests.get('http://127.0.0.1:8000/api/v1/transactions/?wallet='+str(wallet[0]['pk'])).json()
+        category = requests.get('http://127.0.0.1:8000/api/v1/categories').json()
+        # kind_of_trans = requests.get('http://127.0.0.1:8000/api/v1/kindoftransactions')
+        # print(kind_of_trans)
         today = date.today()
-        print(res_transactions.json()[0]['created_at'].split('T')[0])
-        return render(request, 'index.html')
+        tran_list = []
+        cate_list = []
+        for tran in transactions:
+            # print(tran['created_at'].split('T')[0].split('-')[1] == str(today.month))
+            if int(tran['created_at'].split('T')[0].split('-')[0]) == today.year and int(tran['created_at'].split('T')[0].split('-')[1]) == today.month:
+                tran['amount'] = int(tran['amount'])
+                tran_list.append(tran)
+        print(tran_list)
+        for cate in category:
+            cate_list.append(cate['name'])
+        return render(request, 'index.html',{ 'tran_list':tran_list, 'wallet':wallet, 'category':cate_list, 'day':'{}-{}'.format(today.year, tran['created_at'].split('T')[0].split('-')[1])})
 

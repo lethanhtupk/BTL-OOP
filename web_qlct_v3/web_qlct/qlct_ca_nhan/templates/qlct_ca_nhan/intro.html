@@ -1,0 +1,71 @@
+{% extends  "users/base1.html" %} 
+{% block rightcolumn %}
+{% load static %} 
+
+<div class="w3-bar w3-teal w3-card" >
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <div class="w3-dropdown-hover w3-hide-small">
+    <button class="w3-button w3-padding-large" title="Danh sách ví">Danh sách ví<i class="fa fa-caret-down"></i></span></button>     
+    <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+      {% for vi in ds_vi %}
+      <!-- cần thêm link vào đây (link dến lấy chi tiết ví) -->
+        <a href="{% url 'lay_ls_chi_tieu' vi.id %}" class="w3-bar-item w3-button w3-center">{{ vi.ten }}</a> 
+      {% endfor %}
+      <a href="{% url 'themvi' %}" class="w3-bar-item w3-button w3-center">Thêm ví</a>
+    </div>
+  </div> 
+  <!-- thêm link lấy ds lịch sử chi tiêu -->
+    <!-- <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hide-small" style="color:white">Lịch Sử Chi Tiêu</a> -->
+    <div class="w3-dropdown-hover w3-hide-small">
+      <button class="w3-padding-large w3-button" title="More">Thống kê <i class="fa fa-caret-down"></i></button>     
+      <div class="w3-dropdown-content w3-bar-block w3-card-4">
+        <!-- các link lấy biểu đồ -->
+        {% for vi in ds_vi %}
+        <a href="{% url 'lay_bieu_do' vi.id %}" class="w3-bar-item w3-button">{{vi.ten}}</a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- <div class="w3-dropdown-hover w3-hide-small">
+      <button class="w3-padding-large w3-button" title="More">Biểu Đồ Cột <i class="fa fa-caret-down"></i></button>     
+      <div class="w3-dropdown-content w3-bar-block w3-card-4">
+        {% for vi in ds_vi %}
+        <a href="{% url 'lay_bieu_do_cot' vi.id %}" class="w3-bar-item w3-button">{{vi.ten}}</a>
+        {% endfor %}
+      </div>
+    </div> -->
+
+    <!-- link thêm lĩnh vực -->
+    <a href="{% url 'themlinhvuc' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small" style="color:white">Thêm danh mục</a>
+<!-- link thêm hóa đơn chi tiêu -->
+    <a href="{% url 'themchitieu' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right" style="color:white">Thêm giao dịch</a>
+    </div>
+
+    <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+
+  <!-- First Photo Grid-->
+  <div class="w3-row-padding" id="food">
+    <div class="w3-quarter">
+      <img src="{% static 'users/3.png' %}" style="width:100%">
+      <h3>Dễ dàng theo dõi chi tiêu</h3>
+      <p>Dễ dàng để ghi chép lại chi tiêu của mình, và phân loại vào các mục như là: Thức Ăn, Mua sắm; v.v...</p>
+    </div>
+    <div class="w3-quarter">
+      <img src="{% static 'users/2.png' %}" style="width:100%">
+      <h3>Giao diện thân thiện</h3>
+      <p>Giao diện đẹp, bắt mắt, dễ thao tác, quan sát và trực quan</p>
+    </div>
+    <div class="w3-quarter">
+      <img src="{% static 'users/6.png' %}" style="width:100%">
+      <h3>Biểu đồ trực quan</h3>
+      <p>Biểu đồ đánh giá chi tiêu theo từng mục một cách trực quan, sinh động</p>
+      <p>What else?</p>
+    </div>
+    <div class="w3-quarter">
+      <img src="{% static 'users/7.png' %}" style="width:100%">
+      <h3>Quản lý nguồn quỹ tập thể</h3>
+      <p>Dễ dàng quản lý các nguồn quỹ nhóm, quỹ lớp, tập thể một cách công khai, minh bạch, tiện lợi và dễ dàng</p>
+    </div>
+  </div>
+
+ {% endblock %} 
