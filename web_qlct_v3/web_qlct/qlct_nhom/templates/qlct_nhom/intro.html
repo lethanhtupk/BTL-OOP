@@ -1,0 +1,72 @@
+{% extends  "users/base1.html" %}
+{% block rightcolumn %}
+{% load static %} 
+
+<div class="w3-bar w3-teal w3-card">
+  <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)"
+    onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+
+  <div class="w3-dropdown-hover w3-hide-small">
+    <button class="w3-button w3-padding-large" title="Danh sách nhóm">Danh sách nhóm<i
+        class="fa fa-caret-down"></i></span></button>
+    <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+      {% for nhom in ds_nhom %}
+      <!-- cần thêm link lấy chi tiết các thành viên nhóm -->
+      <a href="{% url 'ds_user' nhom.id %}" class="w3-bar-item w3-button w3-center">{{ nhom.ten }}</a>
+      {% endfor %}
+      <a href="{% url 'themnhom' %}" class="w3-bar-item w3-button w3-center">thêm nhóm</a>
+    </div>
+  </div>
+
+  <div class="w3-dropdown-hover w3-hide-small">
+    <button class="w3-padding-large w3-button" title="More">Biểu Đồ Tròn <i class="fa fa-caret-down"></i></button>     
+    <div class="w3-dropdown-content w3-bar-block w3-card-4">
+      <!-- các link lấy biểu đồ -->
+      {% for vi in ds_vi %}
+      <a href="{% url 'lay_bieu_do_nhom' vi.id %}" class="w3-bar-item w3-button">{{vi.ten}}</a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="w3-dropdown-hover w3-hide-small">
+    <button class="w3-padding-large w3-button" title="More">Biểu Đồ Cột <i class="fa fa-caret-down"></i></button>     
+    <div class="w3-dropdown-content w3-bar-block w3-card-4">
+      <!-- các link lấy biểu đồ -->
+      {% for vi in ds_vi %}
+      <a href="{% url 'lay_bieu_do_cot_nhom' vi.id %}" class="w3-bar-item w3-button">{{vi.ten}}</a>
+      {% endfor %}
+    </div>
+  </div>
+  <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <div class="w3-dropdown-hover w3-hide-small">
+    <button class="w3-button w3-padding-large" title="Danh sách ví">Danh sách ví<i class="fa fa-caret-down"></i></span></button>     
+    <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+      {% for vi in ds_vi %}
+      <!-- cần thêm link vào đây (link dến lấy chi tiết ví) -->
+        <a href="{% url 'lay_ls_chi_tieu_nhom' vi.id %}" class="w3-bar-item w3-button w3-center">{{ vi.ten }}</a> 
+      {% endfor %}
+      <a href="{% url 'them_vinhom' %}" class="w3-bar-item w3-button w3-center">Thêm ví</a>
+    </div>
+  </div> 
+  {% comment %} <a href="{% url 'them_vinhom' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small" style="color:white">Thêm ví nhóm</a> {% endcomment %}
+
+
+  <!-- <a href="#band" class="w3-bar-item w3-button w3-padding-large w3-hide-small" style="color:white">Lịch Sử Chi Tiêu</a> -->
+
+  <a href="{% url 'them_chitieu' %}" class="w3-padding-large w3-hide-small w3-right w3-hover-white"
+    title="thêm chi tiêu" style="color:white">Thêm chi tiêu nhóm</a>
+</div>
+
+<div class="w3-row w3-padding-64" id="about">
+    <div class="w3-col m6 w3-padding-large w3-hide-small">
+     <img src="{% static 'users/nhom.jpg' %}" class="w3-round w3-image w3-opacity-min" alt="Table Setting" width="600" height="750">
+    </div>
+
+    <div class="w3-col m6 w3-padding-large">
+      <h1 class="w3-center">Quản lý chi tiêu nhóm</h1><br>
+      <p class="w3-large">Nơi để quản lý quỹ chung của một lớp, một nhóm, một đội bóng, hay bất cứ tập thể nào một cách dễ dàng, minh bạch, công khai và đơn giản</p>
+      <p class="w3-large w3-text-grey w3-hide-medium">Mọi thành viên trong nhóm có thể quan sát, theo dõi, thêm chi tiêu, và cùng nhau quản lý quỹ tài chính của cá nhân và tập thể</p>
+    </div>
+  </div>
+
+{% endblock %}

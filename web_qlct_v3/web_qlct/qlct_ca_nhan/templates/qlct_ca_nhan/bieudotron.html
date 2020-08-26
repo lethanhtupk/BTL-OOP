@@ -1,0 +1,60 @@
+{% extends "qlct_ca_nhan/qlct_canhan.html" %}
+{% block content %}
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+
+  </head>
+  <body>
+    <div style="width: 600px;">
+    <canvas id="myChart" height="450" width="600" style="margin-top: 30px;"></canvas>
+    <div style="margin-top: 50px; margin-left: auto; 
+    margin-right: auto;">
+    
+      <table class="table-hover table " style="color: black; width: 600px;">
+        <tbody >
+            <tr>
+                <td>Total</td>
+                <td>{{total}}</td>
+            </tr>            
+        </tbody>
+    </table>
+  </div>
+  </div>
+    <script>
+      let ctx = document.getElementById('myChart').getContext('2d');
+      let labels = {{ ds_ten | safe}}; 
+      let datas = {{ds_tien | safe}};
+  console.log(labels);
+  var data = {
+      labels: labels,
+      datasets: [
+          {
+              label: "Số tiền",
+              backgroundColor: "red",
+              data: datas
+          }
+      ]
+  };
+  
+  var myBarChart = new Chart(ctx, {
+      type: 'bar',
+      data: data,
+      options: {
+          barValueSpacing: 20,
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      min: 0,
+                  }
+              }]
+          }
+      }
+  });
+    </script>
+  </body>
+
+</html>
+
+{% endblock %}
